@@ -12,7 +12,7 @@ function SideBar() {
        <Link to="/" className={({isActive}) => isActive ? linkClasses + " bg-indigo-50 font-semibold" : linkClasses}>
           Home
         </Link>
-        <Link to="/admindashboard" className={({isActive}) => isActive ? linkClasses + " bg-indigo-50 font-semibold" : linkClasses}>
+        <Link to="admindashboard" className={({isActive}) => isActive ? linkClasses + " bg-indigo-50 font-semibold" : linkClasses}>
           Dashboard
         </Link>
         <Link to="adminprojects" className={({isActive}) => isActive ? linkClasses + " bg-indigo-50 font-semibold" : linkClasses}>

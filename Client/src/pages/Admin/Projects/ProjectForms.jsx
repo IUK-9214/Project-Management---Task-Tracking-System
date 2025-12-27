@@ -1,38 +1,56 @@
-// src/components/projects/ProjectForm.jsx
-
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import api from "../../../api/axios.js";
 
 function ProjectForms() {
-  
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-  e.preventDefault()
+  const [formdata, setFormData] = useState({
+    title: "",
+    desc: ""
+  });
 
-    // 🔹 save project logic here (API / state)
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value
+    }));
+  };
 
-    navigate('/admindashboard/adminprojects'); 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await api.post("/project", formdata);
+      navigate('/admindashboard/adminprojects');
+    } catch (error) {
+      console.error("Error creating project:", error?.response?.data?.message);
+    }
   };
 
   return (
-    <div className="bg-white border border-gray-200 rounded-xl shadow p-6 max-w-md">
-      <h2 className="text-xl font-semibold text-indigo-600 mb-4">
-        Add New Project
-      </h2>
+    <div className="bg-white border p-6 rounded max-w-md">
+      <h2 className="text-xl font-semibold text-indigo-600 mb-4">Add New Project</h2>
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <input
           type="text"
+          name="title"        
+          value={formdata.title}
+          onChange={handleChange}
           placeholder="Project Title"
-          className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-600"
+          className="border px-3 py-2 rounded focus:ring-2 focus:ring-indigo-600"
           required
         />
 
         <textarea
+          name="desc"       
+          value={formdata.desc}
+          onChange={handleChange}
           placeholder="Project Description"
-          className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-600"
+          className="border px-3 py-2 rounded focus:ring-2 focus:ring-indigo-600"
           required
-        ></textarea>
+        />
 
         <button
           type="submit"

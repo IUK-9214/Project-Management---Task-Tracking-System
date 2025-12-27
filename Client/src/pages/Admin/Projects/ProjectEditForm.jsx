@@ -1,50 +1,61 @@
-// src/components/projects/ProjectForm.jsx
-
 import { useNavigate, useParams } from "react-router-dom";
-import { dummyProjects } from "./dummprojectdata";
 import { useEffect, useState } from "react";
+import api from "../../../api/axios";
+
 
 function ProjectEditForms() {
-  const {id} =useParams()
+  const { id } = useParams();
   const navigate = useNavigate();
 
-  const [data,setdata]=useState({
-    title:"",
-    description:""
-  })
+  // State defined before useEffect
+  const [data, setData] = useState({
+    title: "",
+    desc: ""
+  });
 
-const   handlechange =(e)=>{
-const name =e.target.name
-const value =e.target.value
-setdata((perv)=>{
-    return{
-        ...prev,
-        [name]:value
-    }
-})
 
+const fetchingData=async()=>{
+  try {
+    const res = await api.get(`/project/${id}`)
+    setData({
+      title:res.data.oneproject.title,
+      desc:res.data.oneproject.desc,
+    })
+
+  } catch (error) {
+    console.log(error);
+  }
 }
 
+  // Load project data
+  useEffect(() => {
+  fetchingData()
+  }, [id]);
 
-  useEffect(()=>{
-const project =dummyProjects.find(
-    (p) => p.id === Number(id)
-);
-if(project){
-    setdata(project)
-       }
-    },[])
+  // Handle input changes
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setData((prev) => ({
+      ...prev,
+      [name]: value
+    }));
+  };
 
- 
+  // Submit handler
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
+     e.preventDefault();
+   try {
+    
+ const res = await api.put(`/project/${id}`,data)
 
-    0
-  e.preventDefault()
+    console.log("Updated project data:", res);
 
-    // 🔹 save project logic here (API / state)
+    navigate("/admindashboard/adminprojects");
 
-    navigate('/admindashboard/adminprojects'); 
+   } catch (error) {
+     console.error("Error creating product:", error?.response?.data?.message);
+   }
   };
 
   return (
@@ -55,19 +66,19 @@ if(project){
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <input
-        name="text"
+          name="title"
           type="text"
-          onChange={(e)=>handlechange(e)}
           value={data.title}
+           onChange={(e)=>handleChange(e)}
           placeholder="Project Title"
           className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-600"
           required
         />
 
         <textarea
-        name="description"
-          onChange={(e)=>handlechange(e)}
-          value={data.description}
+          name="desc" // ✅ matches state key
+          value={data.desc}
+          onChange={(e)=>handleChange(e)}
           placeholder="Project Description"
           className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-600"
           required
