@@ -14,14 +14,16 @@ function Tasks() {
       </h1>
 
       {/* Add Task Form */}
+
       <div className="mb-8">
         <TaskForms/>
       </div>
 
       {/* Task List */}
+      
       <TasksList />
     </div>
   );
 }
 
-export default Tasks;
+export default Tasks; 

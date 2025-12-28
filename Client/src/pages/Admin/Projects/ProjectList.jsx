@@ -28,7 +28,7 @@ const[Project,setProject]=useState([])
 
 useEffect(()=>{
   fetchProjects()
-},[])
+},[Project])
 
 
   return (
