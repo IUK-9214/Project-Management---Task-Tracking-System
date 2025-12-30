@@ -1,29 +1,32 @@
 // src/pages/admin/Tasks.jsx
 
-import TaskForms from "./TaskForms";
-import TasksList from "./TasksList";
-
-
-
+import { Link, Outlet } from "react-router-dom";
 
 function Tasks() {
   return (
     <div className="p-6 bg-gray-50 min-h-screen">
-      <h1 className="text-3xl font-bold text-indigo-600 mb-6">
-        Tasks
-      </h1>
+      
+      {/* Header + Button */}
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="text-3xl font-bold text-indigo-600">
+          Tasks
+        </h1>
 
-      {/* Add Task Form */}
-
-      <div className="mb-8">
-        <TaskForms/>
+        <Link
+          to="/admindashboard/admintasks/addTask"
+          className="bg-indigo-600 text-white px-5 py-2 rounded-lg
+                     hover:bg-indigo-700 transition shadow-md"
+        >
+          + Add Task
+        </Link>
       </div>
 
-      {/* Task List */}
-      
-      <TasksList />
+      {/* Content Area */}
+      <div className="mt-4">
+        <Outlet />
+      </div>
     </div>
   );
 }
 
-export default Tasks; 
+export default Tasks;

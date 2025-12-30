@@ -1,45 +1,36 @@
-// src/components/tasks/TaskList.jsx
-
-
-
-
+import { useState, useEffect } from "react";
+import api from "../../../api/axios";
 import TasksCard from "./TasksCard";
 
-// Dummy tasks for UI
-const dummyTasks = [
-  {
-    id: 1,
-    title: "Design Dashboard",
-    description: "Create wireframes for dashboard UI",
-    status: "To Do",
-    assignedUsers: ["Ali", "Sara"],
-  },
-  {
-    id: 2,
-    title: "Setup Backend",
-    description: "Create REST API endpoints",
-    status: "In Progress",
-    assignedUsers: ["Ali"],
-  },
-  {
-    id: 3,
-    title: "Testing",
-    description: "Unit tests for components",
-    status: "Completed",
-    assignedUsers: ["Sara", "Ali"],
-  },
-];
-
 function TasksList() {
+  const [tasks, setTasks] = useState([]);
+
+  const fetchTasks = async () => {
+    try {
+      const res = await api.get("/task");
+      setTasks(res.data.task || res.data); // adjust based on backend response
+    } catch (error) {
+      console.error(
+        "Error fetching tasks:",
+        error?.response?.data?.message || error.message
+      );
+    }
+  };
+
+  useEffect(() => {
+    fetchTasks();
+  }, []); // run only once
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      {dummyTasks.map((task) => (
+      {tasks.map((task) => (
         <TasksCard
-          key={task.id}
-          title={task.title}
-          description={task.description}
-          status={task.status}
-          assignedUsers={task.assignedUsers}
+          key={task._id}
+          id={task._id}
+          title={task.taskTitle}
+          description={task.taskDesc}
+          status={task.taskStatus}
+          assignedUsers={task.taskAssign}
         />
       ))}
     </div>

@@ -9,6 +9,8 @@ import ProjectForms from './pages/Admin/Projects/ProjectForms'
 import ProjectList from './pages/Admin/Projects/ProjectList'
 import Home from './components/Home'
 import ProjectEditForms from './pages/Admin/Projects/ProjectEditForm'
+import TaskForms from './pages/Admin/Tasks/TaskForms'
+import TasksList from './pages/Admin/Tasks/TasksList'
 function App() {
   return (
     <>
@@ -25,7 +27,11 @@ function App() {
       <Route path='addproject' element={<ProjectForms/>}/>
       <Route path="editproject/:id" element={<ProjectEditForms />} />
 
-      <Route path='admintasks' element={<Tasks/>}/>
+      <Route path='admintasks' element={<Tasks/>}>
+          <Route index element={<Navigate to="tasklist" replace />} />
+      <Route path='tasklist' element={<TasksList/>}/>
+      <Route path='addTask' element={<TaskForms/>}/>
+      </Route>
       <Route path='adminusers' element={<Users/>}/>
       </Route>
     </Routes>

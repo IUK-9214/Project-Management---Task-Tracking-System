@@ -1,12 +1,9 @@
-// src/components/tasks/TaskCard.jsx
-
-
-
 import TaskStatus from "./TaskStatus";
 
-function TasksCard({ title, description, status, assignedUsers }) {
+function TasksCard({ id, title, description, status, assignedUsers }) {
   return (
     <div className="bg-white border border-gray-200 rounded-xl shadow p-5 flex flex-col justify-between hover:shadow-lg transition-shadow duration-300">
+      
       {/* Task Title */}
       <h3 className="text-xl font-semibold text-indigo-600">{title}</h3>
 
@@ -15,14 +12,17 @@ function TasksCard({ title, description, status, assignedUsers }) {
 
       {/* Assigned Users */}
       <div className="flex gap-2 mt-3 flex-wrap">
-        {assignedUsers.map((user, index) => (
-          <span
-            key={index}
-            className="bg-indigo-50 text-indigo-600 px-2 py-1 rounded-full text-sm"
-          >
-            {user}
-          </span>
-        ))}
+        {assignedUsers &&
+          assignedUsers
+            .split(",")
+            .map((user, index) => (
+              <span
+                key={index}
+                className="bg-indigo-50 text-indigo-600 px-2 py-1 rounded-full text-sm"
+              >
+                {user.trim()}
+              </span>
+            ))}
       </div>
 
       {/* Status Badge */}
