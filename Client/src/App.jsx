@@ -11,6 +11,10 @@ import Home from './components/Home'
 import ProjectEditForms from './pages/Admin/Projects/ProjectEditForm'
 import TaskForms from './pages/Admin/Tasks/TaskForms'
 import TasksList from './pages/Admin/Tasks/TasksList'
+import TaskEditForm from './pages/Admin/Tasks/TaskEditForm'
+import UsersForm from "./pages/Admin/Users/UsersForm"
+import UsersList from "./pages/Admin/Users/UsersList"
+import UsersEditForm from "./pages/Admin/Users/UsersEditForm"
 function App() {
   return (
     <>
@@ -20,6 +24,7 @@ function App() {
       <Route index element={<Navigate to="admindashboard" replace />} />
       <Route path='admindashboard' element={<AdminDashboard/>}/>
 
+
       <Route path='adminprojects' element={<Projects/>}>
       <Route index element={<Navigate to="projectlist" replace />} />
       <Route path='projectlist' element={<ProjectList/>}/>
@@ -27,12 +32,22 @@ function App() {
       <Route path='addproject' element={<ProjectForms/>}/>
       <Route path="editproject/:id" element={<ProjectEditForms />} />
 
+
       <Route path='admintasks' element={<Tasks/>}>
           <Route index element={<Navigate to="tasklist" replace />} />
       <Route path='tasklist' element={<TasksList/>}/>
       <Route path='addTask' element={<TaskForms/>}/>
+      <Route path='editTask/:id' element={<TaskEditForm/>}/>
       </Route>
-      <Route path='adminusers' element={<Users/>}/>
+
+
+
+      <Route path='adminusers' element={<Users/>}>
+      <Route index element={<Navigate to="UsersList" replace/>}/>
+      <Route path='UsersList' element={<UsersList/>}/>
+      <Route path='adduser' element={<UsersForm/>}/>
+      <Route path='edituser/:id' element={<UsersEditForm/>}/>
+      </Route>
       </Route>
     </Routes>
 

@@ -1,6 +1,20 @@
+import { Link } from "react-router-dom";
 import TaskStatus from "./TaskStatus";
+import api from "../../../api/axios";
 
 function TasksCard({ id, title, description, status, assignedUsers }) {
+
+
+const handleDelete=async()=>{
+  try{
+await api.delete(`/task/${id}`)
+  }catch(error){
+console.error("Error creating task:", error?.response?.data?.message);
+  }
+}
+
+
+
   return (
     <div className="bg-white border border-gray-200 rounded-xl shadow p-5 flex flex-col justify-between hover:shadow-lg transition-shadow duration-300">
       
@@ -32,10 +46,10 @@ function TasksCard({ id, title, description, status, assignedUsers }) {
 
       {/* Action Buttons */}
       <div className="flex gap-2 mt-4">
-        <button className="bg-indigo-600 text-white px-4 py-1 rounded hover:bg-indigo-700 transition">
+        <Link to={`/admindashboard/admintasks/editTask/${id}`} className="bg-indigo-600 text-white px-4 py-1 rounded hover:bg-indigo-700 transition">
           Edit
-        </button>
-        <button className="bg-gray-200 text-gray-700 px-4 py-1 rounded hover:bg-gray-300 transition">
+        </Link>
+        <button onClick={handleDelete} className="bg-gray-200 text-gray-700 px-4 py-1 rounded hover:bg-gray-300 transition">
           Delete
         </button>
       </div>

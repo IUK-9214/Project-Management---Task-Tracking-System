@@ -1,9 +1,24 @@
 
 
 // src/components/users/UserCard.jsx
+import { Link, useParams } from "react-router-dom";
 import RoleBadge from "./RoleBadge";
+import api from "../../../api/axios";
 
-function UserCard({ name, email, role }) {
+function UserCard({id, name, email, role }) {
+
+ const  handleDelete=async()=>{
+  try {
+    await api.delete(`/adminUser/${id}`)
+
+  } catch (error) {
+      console.error("Error creating User:", error?.response?.data?.message);
+
+  }
+ }
+
+
+
   return (
     <div className="bg-white border border-gray-200 rounded-xl shadow p-5 flex flex-col justify-between hover:shadow-lg transition-shadow duration-300">
       <h3 className="text-xl font-semibold text-indigo-600">{name}</h3>
@@ -12,10 +27,12 @@ function UserCard({ name, email, role }) {
         <RoleBadge role={role} />
       </div>
       <div className="flex gap-2 mt-4">
-        <button className="bg-indigo-600 text-white px-4 py-1 rounded hover:bg-indigo-700 transition">
+        <Link to={`/admindashboard/adminusers/edituser/${id}`} className="bg-indigo-600 text-white px-4 py-1 rounded hover:bg-indigo-700 transition">
           Edit
-        </button>
-        <button className="bg-gray-200 text-gray-700 px-4 py-1 rounded hover:bg-gray-300 transition">
+        </Link>
+        <button
+        onClick={handleDelete}
+        className="bg-gray-200 text-gray-700 px-4 py-1 rounded hover:bg-gray-300 transition">
           Delete
         </button>
       </div>

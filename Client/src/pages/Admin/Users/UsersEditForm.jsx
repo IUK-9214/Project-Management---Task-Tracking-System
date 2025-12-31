@@ -1,18 +1,19 @@
 import { useState } from "react";
 import api from "../../../api/axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect } from "react";
 
 
 
 // src/components/users/UserForm.jsx
 function UsersForm() {
-
+  const{id}=useParams()
 const navigate=useNavigate()
 
 const[formuser,SetFromuser]=useState({
   fullName:"",
   email:"",
-  role:"Developer"
+  role:""
 })
 
 const handleChange =(e)=>{
@@ -24,10 +25,26 @@ SetFromuser((prev)=>{
   }
 })
 }
+const fectchingdata=async()=>{
+  try {
+    const res=await api.get(`/adminUser/${id}`)
+    SetFromuser({ fullName:res.data.AdminUser.fullName,
+  email:res.data.AdminUser.email,
+  role:res.data.AdminUser.role
+    })
+  } catch (error) {
+    
+  }
+}
+useEffect(()=>{
+fectchingdata()
+},[id])
+
+
 const handleSubmit=async(e)=>{
     e.preventDefault()
 try {
-  const res= await api.post("/adminUser",formuser)
+  const res= await api.put(`/adminUser/${id}`,formuser)
 navigate("/admindashboard/adminusers");
 
 } catch (error) {
@@ -76,7 +93,7 @@ navigate("/admindashboard/adminusers");
           type="submit"
           className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition"
         >
-          Add User
+          Update User
         </button>
       </form>
     </div>

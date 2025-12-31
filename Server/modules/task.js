@@ -16,7 +16,9 @@ const Tasks = mongoose.Schema({
     taskAssign: {
         type: String
     }
-}, { timeStamps: true });
+}, {timestamps:true}
+
+)
 
 
 const Task = mongoose.model("Tasks", Tasks);
