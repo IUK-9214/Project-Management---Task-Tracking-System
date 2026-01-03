@@ -1,7 +1,9 @@
 import mongoose from "mongoose"
 
 const Tasks = mongoose.Schema({
+    taskProject:{
 
+    },
     taskTitle: {
         type: String,
         required: true

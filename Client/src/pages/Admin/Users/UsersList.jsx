@@ -35,7 +35,7 @@ function UsersList() {
       {Users.map((user) => (
         <UserCard key={user._id}
         id={user._id}
-        name={user.name} email={user.email} role={user.role} />
+        name={user.fullName} email={user.email} role={user.role} />
       ))}
     </div>
   );

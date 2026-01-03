@@ -1,27 +1,63 @@
 // src/components/tasks/TaskForm.jsx
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../../../api/axios.js";
 
 function TaskForms() {
   const navigate = useNavigate();
 
+  const [projects, setProjects] = useState([]);
+  const [Users, setUsers] = useState([])
+
   const [formtask, setFormtask] = useState({
+    taskProject: "",
     taskTitle: "",
     taskDesc: "",
     taskStatus: "To Do",
     taskAssign: ""
   });
 
+  // 🔹 Fetch projects
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const res = await api.get("/project");
+        setProjects(res.data.project);
+      } catch (error) {
+        console.error("Error fetching projects:", error);
+      }
+    };
+
+    fetchProjects();
+  }, [projects]);
+
+  
+    const fecthingData = async () => {
+      try {
+        const res = await api.get(`/adminUser`)
+        setUsers(res.data.AdminUser);
+  
+      } catch (error) {
+        console.error("Error creating User:", error?.response?.data?.message);
+      }
+  
+    }
+    useEffect(() => {
+      fecthingData()
+    }, [Users])
+
+
+  // 🔹 Handle form change
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormtask(prev => ({
+    setFormtask((prev) => ({
       ...prev,
       [name]: value
     }));
   };
 
+  // 🔹 Submit form
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -39,6 +75,23 @@ function TaskForms() {
       </h2>
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+
+        {/* 🔹 Project Dropdown */}
+        <select
+          name="taskProject"
+          value={formtask.taskProject}
+          onChange={handleChange}
+          className="border border-gray-300 rounded px-3 py-2"
+          required
+        >
+          <option value="">Select Project</option>
+          {projects.map((project) => (
+            <option key={project._id} value={project.title}>
+              {project.title}
+            </option>
+          ))}
+        </select>
+
         <input
           type="text"
           name="taskTitle"
@@ -46,6 +99,7 @@ function TaskForms() {
           onChange={handleChange}
           placeholder="Task Title"
           className="border border-gray-300 rounded px-3 py-2"
+          required
         />
 
         <textarea
@@ -67,14 +121,20 @@ function TaskForms() {
           <option value="Completed">Completed</option>
         </select>
 
-        <input
-          type="text"
+        <select
           name="taskAssign"
           value={formtask.taskAssign}
           onChange={handleChange}
-          placeholder="Assign Users (comma separated)"
           className="border border-gray-300 rounded px-3 py-2"
-        />
+          required
+        >
+          <option value="">Select User</option>
+          {Users.map((User) => (
+            <option key={User._id} value={User.fullName}>
+              {User.fullName}
+            </option>
+          ))}
+        </select>
 
         <button
           type="submit"

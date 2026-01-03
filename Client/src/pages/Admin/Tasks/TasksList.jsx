@@ -27,6 +27,7 @@ function TasksList() {
         <TasksCard
           key={task._id}
           id={task._id}
+          project={task.taskProject}
           title={task.taskTitle}
           description={task.taskDesc}
           status={task.taskStatus}
