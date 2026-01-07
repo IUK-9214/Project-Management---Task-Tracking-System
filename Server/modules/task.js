@@ -2,7 +2,7 @@ import mongoose from "mongoose"
 
 const Tasks = mongoose.Schema({
     taskProject:{
-
+        type:String
     },
     taskTitle: {
         type: String,
