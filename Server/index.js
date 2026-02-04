@@ -3,6 +3,7 @@ import dotenv from "dotenv"
 import ConnectDB from "./database/ConnectDB.js";
 import router from "./routes/projectRoutes.js";
 import cors from "cors"
+import AuthRoutes from "./routes/AuthRoutes.js";
 
 dotenv.config()
 
@@ -20,6 +21,7 @@ app.use(express.json());
 ConnectDB()
 
 app.use("/api",router)
+app.use("/api",AuthRoutes)
 
 
 
