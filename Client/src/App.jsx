@@ -15,6 +15,8 @@ import TaskEditForm from './pages/Admin/Tasks/TaskEditForm'
 import UsersForm from "./pages/Admin/Users/UsersForm"
 import UsersList from "./pages/Admin/Users/UsersList"
 import UsersEditForm from "./pages/Admin/Users/UsersEditForm"
+import LoginPage from "./pages/Authorization/LoginPage"
+import SignupPage from "./pages/Authorization/SignupPage"
 
 
 
@@ -24,11 +26,16 @@ function App() {
 
 
     <Routes>
+
+
+
       <Route path ='/' element={<Home/>}/>
+      <Route path= "/login" element ={<LoginPage/>} />
+      <Route path= "/signup" element ={<SignupPage/>} />
+
       <Route path='/admindashboard' element={<AdminLayout/>}>
       <Route index element={<Navigate to="admindashboard" replace />} />
       <Route path='admindashboard' element={<AdminDashboard/>}/>
-
 
       <Route path='adminprojects' element={<Projects/>}>
       <Route index element={<Navigate to="projectlist" replace />} />
@@ -54,6 +61,9 @@ function App() {
       <Route path='edituser/:id' element={<UsersEditForm/>}/>
       </Route>
       </Route>
+
+
+
     </Routes>
 
     

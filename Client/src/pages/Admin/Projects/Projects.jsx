@@ -4,7 +4,7 @@ import { Link, Outlet } from "react-router-dom";
 
 function Projects() {
   return (
-    <div className="p-6 bg-gray-50 min-h-screen">
+    <div className="p-6 bg-black-500 min-h-screen">
       
       {/* Header + Button */}
       <div className="flex items-center justify-between mb-6">

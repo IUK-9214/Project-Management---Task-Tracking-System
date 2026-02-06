@@ -3,20 +3,25 @@ import { motion } from "framer-motion";
 
 function SideBar() {
   const baseClasses =
-    "block py-2 px-4 rounded transition relative overflow-hidden";
+    "block py-2 px-4 rounded-lg transition relative overflow-hidden";
 
   return (
     <motion.div
       initial={{ x: -80, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
-      className="w-64 bg-white border-r border-gray-200 min-h-screen p-6 hidden md:block"
+      className="w-64 
+                 bg-black/60 backdrop-blur-xl 
+                 border-r border-white/10 
+                 min-h-screen p-6 
+                 hidden md:block 
+                 shadow-2xl"
     >
       <motion.h2
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.3 }}
-        className="text-2xl font-bold text-indigo-600 mb-6"
+        className="text-2xl font-bold text-cyan-400 mb-8"
       >
         Admin Panel
       </motion.h2>
@@ -40,8 +45,8 @@ function SideBar() {
               className={({ isActive }) =>
                 `${baseClasses} ${
                   isActive
-                    ? "bg-indigo-50 text-indigo-700 font-semibold"
-                    : "text-gray-700 hover:bg-indigo-50"
+                    ? "bg-cyan-400/10 text-cyan-400 font-semibold"
+                    : "text-gray-300 hover:bg-white/10"
                 }`
               }
             >
@@ -50,8 +55,10 @@ function SideBar() {
               {/* Active Indicator Bar */}
               <motion.span
                 layout
-                className="absolute left-0 top-0 h-full w-1 bg-indigo-600 rounded-r"
-                style={{ opacity: 0 }}
+                className="absolute left-0 top-0 h-full w-1 
+                           bg-gradient-to-b from-cyan-400 to-blue-500 
+                           rounded-r"
+                style={{ opacity: 1 }}
               />
             </NavLink>
           </motion.div>

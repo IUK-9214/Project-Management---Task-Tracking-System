@@ -29,32 +29,36 @@ function ProjectForms() {
   };
 
   return (
-    <div className="bg-white border p-6 rounded max-w-md">
-      <h2 className="text-xl font-semibold text-indigo-600 mb-4">Add New Project</h2>
+    <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl shadow-lg p-8 max-w-md mx-auto mt-10">
+      
+      <h2 className="text-2xl font-bold text-cyan-400 mb-6 text-center">
+        Add New Project
+      </h2>
 
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-5">
         <input
           type="text"
-          name="title"        
+          name="title"
           value={formdata.title}
           onChange={handleChange}
           placeholder="Project Title"
-          className="border px-3 py-2 rounded focus:ring-2 focus:ring-indigo-600"
+          className="bg-white/20 placeholder-gray-300 text-white border border-white/30 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-cyan-400 transition"
           required
         />
 
         <textarea
-          name="desc"       
+          name="desc"
           value={formdata.desc}
           onChange={handleChange}
           placeholder="Project Description"
-          className="border px-3 py-2 rounded focus:ring-2 focus:ring-indigo-600"
+          className="bg-white/20 placeholder-gray-300 text-white border border-white/30 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-cyan-400 transition resize-none"
+          rows={4}
           required
         />
 
         <button
           type="submit"
-          className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition"
+          className="bg-cyan-400 text-black font-semibold px-5 py-2 rounded-lg hover:bg-cyan-500 transition"
         >
           Add Project
         </button>

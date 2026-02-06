@@ -30,31 +30,43 @@ function ProgressChart() {
 
   useEffect(() => {
     fetchTaskProgress();
-  }, [chartData]);
+  }, [chartData]); // keep as per instruction
 
   return (
-    <LineChart
-      xAxis={[
-        {
-          data: ["To Do", "In Progress", "Completed"],
-          scaleType: "point",
-        },
-      ]}
-      series={[
-        {
-          data: chartData,
-          area: true,
-          label: "Tasks Status",
-          color: "#4f46e5", // indigo
-        },
-      ]}
-      height={300}
-      sx={{
-        ".MuiAreaElement-root": {
-          opacity: 0.2,
-        },
-      }}
-    />
+    <div className="bg-white/10 backdrop-blur-xl rounded-2xl p-4 shadow-lg border border-white/20">
+      <LineChart
+        xAxis={[
+          {
+            data: ["To Do", "In Progress", "Completed"],
+            scaleType: "point",
+            style: {
+              tick: { fill: "#A5F3FC", fontSize: 14 }, // cyan labels
+              grid: { stroke: "rgba(255,255,255,0.1)" },
+            },
+          },
+        ]}
+        series={[
+          {
+            data: chartData,
+            area: true,
+            label: "Tasks Status",
+            color: "#06B6D4", // cyan gradient accent
+            lineStyle: { strokeWidth: 3 },
+          },
+        ]}
+        height={300}
+        sx={{
+          ".MuiAreaElement-root": {
+            opacity: 0.2,
+            fill: "rgba(6,182,212,0.2)", // cyan translucent
+          },
+          ".MuiLineElement-root": {
+            stroke: "#06B6D4",
+            strokeWidth: 3,
+          },
+        }}
+      />
+    </div>
   );
 }
 
