@@ -52,8 +52,8 @@ function TaskForms() {
       }
     };
 
-    fetchProjects();
-  }, []);
+    fetchProjects(); 
+  }, [projects]);
 
   /* 🔹 Fetch users */
   useEffect(() => {
