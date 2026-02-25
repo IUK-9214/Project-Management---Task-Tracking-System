@@ -1,7 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 function SignupPage() {
+
+const [form,setForm]=useState({
+  FullName:"",
+  Email:"",
+  Password:""
+})
+
+
+
+
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-black via-gray-900 to-black">
       
@@ -31,6 +42,8 @@ function SignupPage() {
             <input
               type="text"
               placeholder="John Doe"
+              name="FullName"
+              value={form.FullName}
               className="w-full px-4 py-3 rounded-xl 
                          bg-black/40 text-white 
                          border border-gray-600 
@@ -46,6 +59,8 @@ function SignupPage() {
             </label>
             <input
               type="email"
+              name="Email"
+              value={form.Email}
               placeholder="you@example.com"
               className="w-full px-4 py-3 rounded-xl 
                          bg-black/40 text-white 
@@ -62,6 +77,8 @@ function SignupPage() {
             </label>
             <input
               type="password"
+              name="Password"
+              value={form.Password}
               placeholder="••••••••"
               className="w-full px-4 py-3 rounded-xl 
                          bg-black/40 text-white 
@@ -78,6 +95,8 @@ function SignupPage() {
             </label>
             <input
               type="password"
+              name="ConfrimPassword"
+              value={}
               placeholder="••••••••"
               className="w-full px-4 py-3 rounded-xl 
                          bg-black/40 text-white 

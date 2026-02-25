@@ -1,23 +1,59 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { FiEye, FiEyeOff } from "react-icons/fi";
+import api from "../../api/axios";
+import { useNavigate } from "react-router-dom";
+
+import toast from "react-hot-toast"
 
 function LoginPage() {
 
+  const navigate=useNavigate();
+
+  const [Form, setForm] = useState({
+    Email: "",
+    Password: ""
+  })
+  const [showPassword, setShowPassword] = useState(false)
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    setForm((prev) => {
+      return {
+        ...prev,
+        [name]: value
+      }
+
+    })
+  }
+  const HandleSubmit= async(e)=>{
+    e.preventDefault()
+ try {
+
+  const res = await api.post("/auth/login",Form)
+console.log("data is submitted ",res)
+toast.success("Account sigin")
+navigate("/")
+
+ } catch (error) {
+  toast.error(message)
+ }
+ 
+  }
 
 
 
-
-  
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-black via-gray-900 to-black">
-      
+
       {/* Glass Card */}
       <div className="w-full max-w-md p-8 rounded-2xl 
                       bg-white/10 backdrop-blur-xl 
                       border border-white/20 
                       shadow-2xl
                       animate-fadeIn">
-        
+
         {/* Title */}
         <h2 className="text-3xl font-bold text-center text-white mb-2">
           Welcome Back
@@ -28,7 +64,7 @@ function LoginPage() {
 
         {/* Form */}
         <form className="space-y-5">
-          
+
           {/* Email */}
           <div>
             <label className="block text-sm text-gray-300 mb-1">
@@ -36,6 +72,9 @@ function LoginPage() {
             </label>
             <input
               type="email"
+              name="Email"
+              onChange={(e) => handleChange(e)}
+              value={Form.Email}
               placeholder="you@example.com"
               className="w-full px-4 py-3 rounded-xl 
                          bg-black/40 text-white 
@@ -46,26 +85,40 @@ function LoginPage() {
           </div>
 
           {/* Password */}
-          <div>
+          <div className="relative">
             <label className="block text-sm text-gray-300 mb-1">
               Password
             </label>
+
             <input
-              type="password"
+              type={showPassword ? "text" : "password"}
               placeholder="••••••••"
-              className="w-full px-4 py-3 rounded-xl 
-                         bg-black/40 text-white 
-                         border border-gray-600 
-                         focus:outline-none focus:ring-2 focus:ring-cyan-400
-                         transition"
+              onChange={(e) => handleChange(e)}
+              value={Form.Password}
+              name="Password"
+              className="w-full px-4 py-3 pr-12 rounded-xl 
+               bg-black/40 text-white 
+               border border-gray-600 
+               focus:outline-none focus:ring-2 focus:ring-cyan-400
+               transition"
             />
+
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-3 top-[38px] 
+               text-gray-400 hover:text-white"
+            >
+              {showPassword ? <FiEyeOff size={20} /> : <FiEye size={20} />}
+            </button>
           </div>
 
           {/* Button */}
           <button
+            onSubmit={HandleSubmit}
             type="submit"
             className="w-full py-3 rounded-xl 
-                       bg-gradient-to-r from-cyan-400 to-blue-500
+                       bg-gradient-to-br from-cyan-400 to-blue-500
                        text-black font-semibold
                        hover:scale-105 hover:shadow-lg
                        transition duration-300"

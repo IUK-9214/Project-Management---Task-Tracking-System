@@ -21,7 +21,7 @@ app.use(express.json());
 ConnectDB()
 
 app.use("/api",router)
-app.use("/api",AuthRoutes)
+app.use("/auth",AuthRoutes)
 
 
 
