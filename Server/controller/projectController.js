@@ -122,6 +122,7 @@ export const updatedProject = async (req, res) => {
 export const deleteProject = async (req, res) => {
     try {
         const { id } = req.params
+console.log("deleting project ");
 
         const DeleteProject = await Projects.findByIdAndDelete(id)
 

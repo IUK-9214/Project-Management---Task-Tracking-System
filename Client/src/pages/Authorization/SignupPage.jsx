@@ -96,7 +96,7 @@ const [form,setForm]=useState({
             <input
               type="password"
               name="ConfrimPassword"
-              value={}
+              value={form.Password}
               placeholder="••••••••"
               className="w-full px-4 py-3 rounded-xl 
                          bg-black/40 text-white 
