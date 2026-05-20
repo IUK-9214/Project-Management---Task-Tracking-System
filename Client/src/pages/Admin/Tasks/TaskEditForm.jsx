@@ -90,85 +90,140 @@ function TaskForms() {
   };
 
   return (
-    <div className="bg-white border border-gray-200 rounded-xl shadow p-6 max-w-md">
-      <h2 className="text-xl font-semibold text-indigo-600 mb-4">
-        Update Task
-      </h2>
+    <div className="min-h-screen flex items-center justify-center px-4 py-10 bg-[#0f172a]">
 
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+      <div className="w-full max-w-2xl bg-[#111827] border border-gray-800 rounded-2xl shadow-2xl p-8">
 
-        {/* Project */}
-        <select
-          name="taskProject"
-          value={formtask.taskProject}
-          onChange={handleChange}
-          className="border border-gray-300 rounded px-3 py-2"
-          required
-        >
-          <option value="">Select Project</option>
-          {projects.map((project) => (
-            <option key={project._id} value={project.title}>
-              {project.title}
-            </option>
-          ))}
-        </select>
+        {/* Heading */}
+        <div className="mb-8">
+          <h2 className="text-3xl font-bold text-indigo-500">
+            Update Task
+          </h2>
 
-        {/* Title */}
-        <input
-          type="text"
-          name="taskTitle"
-          value={formtask.taskTitle}
-          onChange={handleChange}
-          placeholder="Task Title"
-          className="border border-gray-300 rounded px-3 py-2"
-          required
-        />
+          <p className="text-gray-400 text-sm mt-2">
+            Modify task details and update progress.
+          </p>
+        </div>
 
-        {/* Description */}
-        <textarea
-          name="taskDesc"
-          value={formtask.taskDesc}
-          onChange={handleChange}
-          placeholder="Task Description"
-          className="border border-gray-300 rounded px-3 py-2"
-        />
+        <form onSubmit={handleSubmit} className="space-y-5">
 
-        {/* Status */}
-        <select
-          name="taskStatus"
-          value={formtask.taskStatus}
-          onChange={handleChange}
-          className="border border-gray-300 rounded px-3 py-2"
-        >
-          <option value="To Do">To Do</option>
-          <option value="In Progress">In Progress</option>
-          <option value="Completed">Completed</option>
-        </select>
+          {/* Project */}
+          <div>
+            <label className="block text-sm text-gray-300 mb-2">
+              Project
+            </label>
 
-        {/* Assign User */}
-        <select
-          name="taskAssign"
-          value={formtask.taskAssign}
-          onChange={handleChange}
-          className="border border-gray-300 rounded px-3 py-2"
-          required
-        >
-          <option value="">Select User</option>
-          {users.map((user) => (
-            <option key={user._id} value={user.fullName}>
-              {user.fullName}
-            </option>
-          ))}
-        </select>
+            <select
+              name="taskProject"
+              value={formtask.taskProject}
+              onChange={handleChange}
+              className="w-full bg-[#1f2937] border border-gray-700 text-white
+                         rounded-xl px-4 py-3 focus:ring-2 focus:ring-indigo-500
+                         outline-none transition"
+              required
+            >
+              <option value="">Select Project</option>
+              {projects.map((project) => (
+                <option key={project._id} value={project.title}>
+                  {project.title}
+                </option>
+              ))}
+            </select>
+          </div>
 
-        {/* Submit */}
-        <button
-          type="submit"
-          className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition"
-        >
-          Update Task
-        </button>
-      </form>
+          {/* Title */}
+          <div>
+            <label className="block text-sm text-gray-300 mb-2">
+              Task Title
+            </label>
+
+            <input
+              type="text"
+              name="taskTitle"
+              value={formtask.taskTitle}
+              onChange={handleChange}
+              placeholder="Task Title"
+              className="w-full bg-[#1f2937] border border-gray-700 text-white
+                         placeholder-gray-400 rounded-xl px-4 py-3
+                         focus:ring-2 focus:ring-indigo-500 outline-none transition"
+              required
+            />
+          </div>
+
+          {/* Description */}
+          <div>
+            <label className="block text-sm text-gray-300 mb-2">
+              Description
+            </label>
+
+            <textarea
+              name="taskDesc"
+              value={formtask.taskDesc}
+              onChange={handleChange}
+              placeholder="Task Description"
+              rows="5"
+              className="w-full bg-[#1f2937] border border-gray-700 text-white
+                         placeholder-gray-400 rounded-xl px-4 py-3
+                         focus:ring-2 focus:ring-indigo-500 outline-none transition resize-none"
+            />
+          </div>
+
+          {/* Status */}
+          <div>
+            <label className="block text-sm text-gray-300 mb-2">
+              Status
+            </label>
+
+            <select
+              name="taskStatus"
+              value={formtask.taskStatus}
+              onChange={handleChange}
+              className="w-full bg-[#1f2937] border border-gray-700 text-white
+                         rounded-xl px-4 py-3 focus:ring-2 focus:ring-indigo-500
+                         outline-none transition"
+            >
+              <option value="To Do">To Do</option>
+              <option value="In Progress">In Progress</option>
+              <option value="Completed">Completed</option>
+            </select>
+          </div>
+
+          {/* Assign User */}
+          <div>
+            <label className="block text-sm text-gray-300 mb-2">
+              Assign User
+            </label>
+
+            <select
+              name="taskAssign"
+              value={formtask.taskAssign}
+              onChange={handleChange}
+              className="w-full bg-[#1f2937] border border-gray-700 text-white
+                         rounded-xl px-4 py-3 focus:ring-2 focus:ring-indigo-500
+                         outline-none transition"
+              required
+            >
+              <option value="">Select User</option>
+              {users.map((user) => (
+                <option key={user._id} value={user.fullName}>
+                  {user.fullName}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* Button */}
+          <button
+            type="submit"
+            className="w-full bg-indigo-600 hover:bg-indigo-700 text-white
+                       font-semibold py-3 rounded-xl shadow-lg
+                       hover:shadow-indigo-500/30 transition"
+          >
+            Update Task
+          </button>
+
+        </form>
+      </div>
     </div>
   );
 }

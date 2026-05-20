@@ -16,33 +16,33 @@ function TasksCard({ id, project, title, description, status, assignedUsers }) {
   };
 
   return (
-    <div className="bg-white border border-gray-200 rounded-xl shadow p-6 flex flex-col justify-between hover:shadow-lg transition-shadow duration-300">
+    <div className="bg-[#111827] border border-gray-800 rounded-2xl shadow-xl p-6 flex flex-col justify-between hover:shadow-indigo-500/20 hover:scale-[1.01] transition-all duration-300">
 
-      {/* Project (Context Label) */}
-      <span className="text-xs font-semibold uppercase tracking-wider text-indigo-600">
+      {/* Project */}
+      <span className="text-xs font-semibold uppercase tracking-widest text-indigo-400">
         {project}
       </span>
 
-      {/* Title (Primary Focus) */}
-      <h3 className="text-xl font-bold text-indigo-600 mt-1 leading-tight">
+      {/* Title */}
+      <h3 className="text-xl font-bold text-white mt-2 leading-snug">
         {title}
       </h3>
 
       {/* Divider */}
-      <div className="w-10 h-0.5 bg-indigo-100 my-3 rounded" />
+      <div className="w-12 h-[2px] bg-indigo-500/30 my-4 rounded-full" />
 
       {/* Description */}
-      <p className="text-gray-500 text-sm leading-relaxed flex-grow">
+      <p className="text-gray-400 text-sm leading-relaxed flex-grow">
         {description || "No description provided."}
       </p>
 
       {/* Assigned Users */}
       {assignedUsers && (
-        <div className="flex gap-2 mt-4 flex-wrap">
+        <div className="flex gap-2 mt-5 flex-wrap">
           {assignedUsers.split(",").map((user, index) => (
             <span
               key={index}
-              className="bg-indigo-50 text-indigo-600 px-3 py-1 rounded-full text-xs font-medium"
+              className="bg-indigo-500/10 text-indigo-300 px-3 py-1 rounded-full text-xs font-medium border border-indigo-500/20"
             >
               {user.trim()}
             </span>
@@ -51,23 +51,28 @@ function TasksCard({ id, project, title, description, status, assignedUsers }) {
       )}
 
       {/* Footer */}
-      <div className="mt-5 flex items-center justify-between">
+      <div className="mt-6 flex items-center justify-between">
+
         <TaskStatus status={status} />
 
         <div className="flex gap-2">
           <Link
             to={`/admindashboard/admintasks/editTask/${id}`}
-            className="bg-indigo-600 text-white px-4 py-1.5 rounded text-sm hover:bg-indigo-700 transition"
+            className="bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm
+                       hover:bg-indigo-700 transition shadow-md"
           >
             Edit
           </Link>
+
           <button
             onClick={handleDelete}
-            className="bg-gray-200 text-gray-700 px-4 py-1.5 rounded text-sm hover:bg-gray-300 transition"
+            className="bg-gray-800 text-gray-300 px-4 py-2 rounded-lg text-sm
+                       hover:bg-red-600 hover:text-white transition"
           >
             Delete
           </button>
         </div>
+
       </div>
 
     </div>
