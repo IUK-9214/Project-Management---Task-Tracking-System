@@ -1,28 +1,59 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import api from "../../api/axios";
+import toast from "react-hot-toast";
 
 function SignupPage() {
+  const navigate = useNavigate();
 
-const [form,setForm]=useState({
-  FullName:"",
-  Email:"",
-  Password:""
-})
+  const [form, setForm] = useState({
+    FullName: "",
+    Email: "",
+    Password: "",
+    ConfirmPassword: ""
+  });
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
 
+    setForm((prev) => ({
+      ...prev,
+      [name]: value
+    }));
+  };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
+    try {
+      if (form.Password !== form.ConfirmPassword) {
+        toast.error("Passwords do not match");
+        return;
+      }
+
+      const res = await api.post("/auth/registartion", {
+        FullName: form.FullName,
+        Email: form.Email,
+        Password: form.Password
+      });
+
+      toast.success("Account created successfully");
+      navigate("/login");
+
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "Signup failed");
+    }
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-black via-gray-900 to-black">
-      
+
       {/* Glass Card */}
       <div className="w-full max-w-md p-8 rounded-2xl 
                       bg-white/10 backdrop-blur-xl 
                       border border-white/20 
-                      shadow-2xl
-                      animate-fadeIn">
-        
+                      shadow-2xl">
+
         {/* Title */}
         <h2 className="text-3xl font-bold text-center text-white mb-2">
           Create Account
@@ -32,8 +63,8 @@ const [form,setForm]=useState({
         </p>
 
         {/* Form */}
-        <form className="space-y-4">
-          
+        <form onSubmit={handleSubmit} className="space-y-4">
+
           {/* Full Name */}
           <div>
             <label className="block text-sm text-gray-300 mb-1">
@@ -41,14 +72,16 @@ const [form,setForm]=useState({
             </label>
             <input
               type="text"
-              placeholder="John Doe"
               name="FullName"
               value={form.FullName}
+              onChange={handleChange}
+              placeholder="John Doe"
               className="w-full px-4 py-3 rounded-xl 
                          bg-black/40 text-white 
                          border border-gray-600 
                          focus:outline-none focus:ring-2 focus:ring-cyan-400
                          transition"
+              required
             />
           </div>
 
@@ -61,12 +94,14 @@ const [form,setForm]=useState({
               type="email"
               name="Email"
               value={form.Email}
+              onChange={handleChange}
               placeholder="you@example.com"
               className="w-full px-4 py-3 rounded-xl 
                          bg-black/40 text-white 
                          border border-gray-600 
                          focus:outline-none focus:ring-2 focus:ring-cyan-400
                          transition"
+              required
             />
           </div>
 
@@ -79,12 +114,14 @@ const [form,setForm]=useState({
               type="password"
               name="Password"
               value={form.Password}
+              onChange={handleChange}
               placeholder="••••••••"
               className="w-full px-4 py-3 rounded-xl 
                          bg-black/40 text-white 
                          border border-gray-600 
                          focus:outline-none focus:ring-2 focus:ring-cyan-400
                          transition"
+              required
             />
           </div>
 
@@ -95,20 +132,23 @@ const [form,setForm]=useState({
             </label>
             <input
               type="password"
-              name="ConfrimPassword"
-              value={form.Password}
+              name="ConfirmPassword"
+              value={form.ConfirmPassword}
+              onChange={handleChange}
               placeholder="••••••••"
               className="w-full px-4 py-3 rounded-xl 
                          bg-black/40 text-white 
                          border border-gray-600 
                          focus:outline-none focus:ring-2 focus:ring-cyan-400
                          transition"
+              required
             />
           </div>
 
           {/* Button */}
           <button
             type="submit"
+            onClick={handleSubmit}
             className="w-full mt-2 py-3 rounded-xl 
                        bg-gradient-to-r from-cyan-400 to-blue-500
                        text-black font-semibold
