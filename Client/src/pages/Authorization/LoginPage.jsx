@@ -32,9 +32,9 @@ function LoginPage() {
  try {
 
   const res = await api.post("/auth/login",Form)
-console.log("data is submitted ",res)
+console.log("data is submitted ")
 toast.success("Account sigin")
-navigate("/")
+navigate("/admindashboard")
 
  } catch (error) {
   toast.error(message)
