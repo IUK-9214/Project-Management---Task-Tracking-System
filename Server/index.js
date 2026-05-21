@@ -24,7 +24,7 @@ app.use(express.static("dist"))
 ConnectDB()
 
 app.use("/api",router)
-app.use("/auth",AuthRoutes)
+app.use("/api/auth",AuthRoutes)
 
 
 

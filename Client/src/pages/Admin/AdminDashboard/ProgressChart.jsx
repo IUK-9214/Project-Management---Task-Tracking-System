@@ -30,7 +30,7 @@ function ProgressChart() {
 
   useEffect(() => {
     fetchTaskProgress();
-  }, [chartData]); // keep as per instruction
+  }, [chartData]); 
 
   return (
     <div className="bg-white/10 backdrop-blur-xl rounded-2xl p-4 shadow-lg border border-white/20">
