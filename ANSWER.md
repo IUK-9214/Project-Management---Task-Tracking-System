@@ -87,7 +87,7 @@ What I asked: Fix logout controller and authentication routing issues
 What I got: Correct Express controller structure, middleware correction, and cookie handling fixes
 * One change I made to the AI output was correcting the logout implementation. The AI initially suggested keeping authentication middleware on the logout route, but I removed it because it was causing unnecessary failures when the token was missing or expired. I also adjusted the API endpoint naming to match my backend routes exactly to prevent 404 errors, ensuring proper communication between frontend and backend.
 
-## Honest Gap
+## Honest Gap was filled after my extebtions for the assesment 
  One thing that is not fully strong in my submission is the authentication routing flow between the frontend and backend. I have already implemented both backend authentication (login, signup, logout) and frontend integration, but there are still some inconsistencies in route alignment and API endpoint handling which can cause bugs.
 
 If I had another day, I would carefully refactor and standardize all authentication routes to ensure exact matching between frontend API calls and backend endpoints. I would also improve route guarding logic so that login and signup pages are properly restricted based on user authentication state, making the navigation flow more reliable and bug-free.
