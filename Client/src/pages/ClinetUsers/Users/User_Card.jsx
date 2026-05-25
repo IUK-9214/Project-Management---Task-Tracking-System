@@ -1,11 +1,12 @@
 // src/components/users/UserCard.jsx
 import { Link, useParams } from "react-router-dom";
-import RoleBadge from "./RoleBadge";
+import RoleBadge from "./UserRoleBadge";
 import api from "../../../api/axios";
+import UserRoleBadge from "./UserRoleBadge";
 
-function UserCard({ id, name, email, role }) {
+function User_Card({ id, name, email, role }) {
 
-  
+ 
 
   return (
     <div className="bg-[#111827] border border-gray-800 rounded-2xl shadow-xl p-5 flex flex-col justify-between hover:shadow-indigo-500/20 hover:scale-[1.02] transition-all duration-300">
@@ -22,14 +23,15 @@ function UserCard({ id, name, email, role }) {
 
       {/* Role */}
       <div className="mt-3">
-        <RoleBadge role={role} />
+        <UserRoleBadge role={role} />
       </div>
 
       {/* Buttons */}
       <div className="flex gap-2 mt-5">
 
-       
+        
 
+        
 
       </div>
 
@@ -37,4 +39,4 @@ function UserCard({ id, name, email, role }) {
   );
 }
 
-export default UserCard;
+export default User_Card;

@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
 import api from "../../../api/axios";
-import TasksCard from "./TasksCard";
+import UserTasksCard from "./UserTaskCard";
 
-function TasksList() {
+function UserTasksList() {
   const [tasks, setTasks] = useState([]);
 
   const fetchTasks = async () => {
     try {
       const res = await api.get("/task");
-      setTasks(res.data.task || res.data); // adjust based on backend response
+      setTasks(res.data.task || res.data); 
     } catch (error) {
       console.error(
         "Error fetching tasks:",
@@ -19,12 +19,12 @@ function TasksList() {
 
   useEffect(() => {
     fetchTasks();
-  }, [tasks]); // run only once
+  }, []); // run only once
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       {tasks.map((task) => (
-        <TasksCard
+        <UserTasksCard
           key={task._id}
           id={task._id}
           project={task.taskProject}
@@ -38,4 +38,4 @@ function TasksList() {
   );
 }
 
-export default TasksList;
+export default UserTasksList;

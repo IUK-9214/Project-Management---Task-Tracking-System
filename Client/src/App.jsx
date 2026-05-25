@@ -17,6 +17,12 @@ import UsersList from "./pages/Admin/Users/UsersList"
 import UsersEditForm from "./pages/Admin/Users/UsersEditForm"
 import LoginPage from "./pages/Authorization/LoginPage"
 import SignupPage from "./pages/Authorization/SignupPage"
+import UserDashboard from './pages/ClinetUsers/userDashbaord/UserDashboard'
+
+import ClientUsers from './pages/ClinetUsers/Users/ClientUsers'
+import Usertask from './pages/ClinetUsers/Tasks/Usertask'
+import UserProjects from './pages/ClinetUsers/Projects/UserProjects'
+import UserTasksList from './pages/ClinetUsers/Tasks/UserTasksList'
 
 
 
@@ -34,8 +40,7 @@ function App() {
       <Route path= "/signup" element ={<SignupPage/>} />
 
       <Route path='/admindashboard' element={<AdminLayout/>}>
-      <Route index element={<Navigate to="admindashboard" replace />} />
-      <Route path='admindashboard' element={<AdminDashboard/>}/>
+      <Route index element={<AdminDashboard/>} />
 
       <Route path='adminprojects' element={<Projects/>}>
       <Route index element={<Navigate to="projectlist" replace />} />
@@ -46,23 +51,33 @@ function App() {
 
 
       <Route path='admintasks' element={<Tasks/>}>
-          <Route index element={<Navigate to="tasklist" replace />} />
+      <Route index element={<Navigate to="tasklist" replace />} />
       <Route path='tasklist' element={<TasksList/>}/>
-      <Route path='addTask' element={<TaskForms/>}/>
-      <Route path='editTask/:id' element={<TaskEditForm/>}/>
+      <Route path='addtask' element={<TaskForms/>}/>
+      <Route path='edittask/:id' element={<TaskEditForm/>}/>
       </Route>
 
-
-
       <Route path='adminusers' element={<Users/>}>
-      <Route index element={<Navigate to="UsersList" replace/>}/>
-      <Route path='UsersList' element={<UsersList/>}/>
+      <Route index element={<Navigate to="userlist" replace/>}/>
+      <Route path='userlist' element={<UsersList/>}/>
       <Route path='adduser' element={<UsersForm/>}/>
       <Route path='edituser/:id' element={<UsersEditForm/>}/>
       </Route>
       </Route>
 
+      <Route path='/user' element={<UserDashboard/>}>
+       
+        
+      </Route>
+       <Route path='/usertasklist' element={<Usertask/>}>
+          <Route index element={<Navigate to="tasklist" replace />} />
+          <Route path='tasklist' element={<UserTasksList/>}/>
+        </Route>
+      <Route path='/userlist' element={<ClientUsers/>}/>
+        <Route path='/userproject' element={<UserProjects/>}/>
+      
 
+      
 
     </Routes>
 

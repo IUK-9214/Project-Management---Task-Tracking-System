@@ -1,7 +1,7 @@
 
 
 // src/components/users/RoleBadge.jsx
-function RoleBadge({ role }) {
+function UserRoleBadge({ role }) {
   const roleColors = {
     Admin: "bg-red-200 text-red-800",
     "Project Manager": "bg-blue-200 text-blue-800",
@@ -17,4 +17,4 @@ function RoleBadge({ role }) {
   );
 }
 
-export default RoleBadge;
+export default UserRoleBadge;

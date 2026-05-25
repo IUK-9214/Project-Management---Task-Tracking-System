@@ -1,9 +1,43 @@
 import { NavLink } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
+import api from "../api/axios";
 
 function SideBar() {
+  const [users, setUsers] = useState([]);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [userProjects, setUserProjects] = useState([]);
+  const [showUsers, setShowUsers] = useState(false);
+
   const baseClasses =
     "block py-2 px-4 rounded-lg transition relative overflow-hidden";
+
+  const fetchUsers = async () => {
+    try {
+      const res = await api.get("/adminUser");
+      setUsers(res.data.AdminUser || []);
+    } catch (error) {
+      console.error("Error fetching users:", error?.response?.data?.message);
+    }
+  };
+
+  const fetchUserProjects = async (userId) => {
+    try {
+      const res = await api.get(`/project?assignedTo=${userId}`);
+      setUserProjects(res.data.project || res.data || []);
+    } catch (error) {
+      console.error("Error fetching user projects:", error?.response?.data?.message);
+    }
+  };
+
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+
+  const handleUserClick = (user) => {
+    setSelectedUser(user);
+    fetchUserProjects(user._id);
+  };
 
   return (
     <motion.div
@@ -64,6 +98,7 @@ function SideBar() {
           </motion.div>
         ))}
       </nav>
+
     </motion.div>
   );
 }

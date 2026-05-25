@@ -2,7 +2,7 @@
 
 // src/components/users/UserList.jsx
 import { useState } from "react";
-import UserCard from "./UserCard";
+import User_Card from "./User_Card";
 import api from "../../../api/axios";
 
 import { useEffect } from "react";
@@ -10,7 +10,7 @@ import { useEffect } from "react";
 // Dummy users for UI
 
 
-function UsersList() {
+function Users_List() {
 
 
 
@@ -33,7 +33,7 @@ function UsersList() {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       {Users.map((user) => (
-        <UserCard key={user._id}
+        <User_Card key={user._id}
         id={user._id}
         name={user.fullName} email={user.email} role={user.role} />
       ))}
@@ -41,4 +41,4 @@ function UsersList() {
   );
 }
 
-export default UsersList;
+export default Users_List;

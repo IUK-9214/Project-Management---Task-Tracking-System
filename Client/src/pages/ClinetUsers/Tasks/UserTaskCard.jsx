@@ -1,19 +1,10 @@
 import { Link } from "react-router-dom";
-import TaskStatus from "./TaskStatus";
+import UserTaskStatus from "./UserTaskStatus";
 import api from "../../../api/axios";
 
-function TasksCard({ id, project, title, description, status, assignedUsers }) {
+function UserTaskCard({ id, project, title, description, status, assignedUsers }) {
 
-  const handleDelete = async () => {
-    try {
-      await api.delete(`/task/${id}`);
-    } catch (error) {
-      console.error(
-        "Error deleting task:",
-        error?.response?.data?.message
-      );
-    }
-  };
+  
 
   return (
     <div className="bg-[#111827] border border-gray-800 rounded-2xl shadow-xl p-6 flex flex-col justify-between hover:shadow-indigo-500/20 hover:scale-[1.01] transition-all duration-300">
@@ -53,12 +44,12 @@ function TasksCard({ id, project, title, description, status, assignedUsers }) {
       {/* Footer */}
       <div className="mt-6 flex items-center justify-between">
 
-        <TaskStatus status={status} />
+        <UserTaskStatus status={status} />
 
         <div className="flex gap-2">
-          
+         
 
-          
+         
         </div>
 
       </div>
@@ -67,4 +58,4 @@ function TasksCard({ id, project, title, description, status, assignedUsers }) {
   );
 }
 
-export default TasksCard;
+export default UserTaskCard;

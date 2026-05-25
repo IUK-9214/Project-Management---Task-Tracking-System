@@ -1,9 +1,9 @@
 // src/components/projects/ProjectList.jsx
 import { useEffect, useState } from "react";
-import ProjectCards from "./ProjectCards";
+import UserProjectCards from "./UserProjectCards";
 import api from "../../../api/axios";
 
-function ProjectList() {
+function UserProjectList() {
   const [Project, setProject] = useState([]);
 
   const fetchProjects = async () => {
@@ -11,7 +11,10 @@ function ProjectList() {
       const res = await api.get("/project");
       setProject(res.data.project || res.data);
     } catch (error) {
-      console.error("Error fetching projects:", error?.response?.data?.message || error.message);
+      console.error(
+        "Error fetching projects:",
+        error?.response?.data?.message || error.message
+      );
     }
   };
 
@@ -20,9 +23,20 @@ function ProjectList() {
   }, [Project]); // fixed dependency to avoid infinite loop
 
   return (
-    <div className="bg-black-500 backdrop-blur-xl border border-white/20 rounded-2xl p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mx-auto">
+    <div
+      className="
+        bg-[#111827]
+        border border-gray-800
+        rounded-2xl
+        shadow-xl
+        p-6
+        grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3
+        gap-6
+        mx-auto
+      "
+    >
       {Project.map((project) => (
-        <ProjectCards
+        <UserProjectCards
           key={project._id}
           id={project._id}
           title={project.title}
@@ -33,4 +47,4 @@ function ProjectList() {
   );
 }
 
-export default ProjectList;
+export default UserProjectList;

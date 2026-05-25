@@ -1,7 +1,7 @@
 
 
 // src/components/tasks/TaskStatus.jsx
-function TaskStatus({ status }) {
+function UserTaskStatus({ status }) {
   const statusColors = {
     "To Do": "bg-yellow-200 text-yellow-800",
     "In Progress": "bg-blue-200 text-blue-800",
@@ -17,4 +17,4 @@ function TaskStatus({ status }) {
   );
 }
 
-export default TaskStatus;
+export default UserTaskStatus;
