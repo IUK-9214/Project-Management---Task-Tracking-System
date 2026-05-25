@@ -3,18 +3,20 @@ import { Link } from "react-router-dom";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import api from "../../api/axios";
 import { useNavigate } from "react-router-dom";
-
+import { signInStart,signInFaluire,signInSuccess, } from "../../redux/user/userSlice";
 import toast from "react-hot-toast"
+import {useDispatch,useSelector } from "react-redux"
 
 function LoginPage() {
 
   const navigate=useNavigate();
-
+  const dispatch =useDispatch()
   const [Form, setForm] = useState({
     Email: "",
     Password: ""
   })
   const [showPassword, setShowPassword] = useState(false)
+ const {loading,error}=useSelector((state)=>state.user)
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -30,14 +32,22 @@ function LoginPage() {
   const HandleSubmit= async(e)=>{
     e.preventDefault()
  try {
-
+dispatch(signInStart())
   const res = await api.post("/auth/login",Form)
+  const data=await res.json();
+if(data.success===false){
+ dispatch(signInFaluire(data.message)); 
+  return;
+}
+dispatch(signInSuccess(data));
+navigate('/')
 console.log("data is submitted ")
-toast.success("Account sigin")
-navigate("/admindashboard")
+toast.success("Account signing")
+
 
  } catch (error) {
-  toast.error(message)
+  dispatch(signInFaluire(toast.error(message)))
+
  }
  
   }
@@ -117,6 +127,7 @@ navigate("/admindashboard")
           <button
             onSubmit={HandleSubmit}
             type="submit"
+            disabled={loading}
             className="w-full py-3 rounded-xl 
                        bg-gradient-to-br from-cyan-400 to-blue-500
                        text-black font-semibold

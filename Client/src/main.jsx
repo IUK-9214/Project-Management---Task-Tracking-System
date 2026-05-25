@@ -9,8 +9,10 @@ createRoot(document.getElementById('root')).render(
 
   <BrowserRouter>
 
-  <StrictMode>
+  <Provider store={store}>
+    <PersistGate loading={null} persistor={persistor}>
     <App />
-  </StrictMode>
+    </PersistGate>
+  </Provider>
     </BrowserRouter>
 )

@@ -4,6 +4,8 @@ import api from "../../api/axios";
 import toast from "react-hot-toast";
 
 function SignupPage() {
+  const [error,setError]=useState(null);
+  const [loading,setLoading]=useState(false)
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
@@ -30,19 +32,28 @@ function SignupPage() {
         toast.error("Passwords do not match");
         return;
       }
-
+setLoading(true)
       const res = await api.post("/auth/registartion", {
         FullName: form.FullName,
         Email: form.Email,
         Password: form.Password
       });
+const data=await res.json();
+if(data.success===false){
+  setLoading(false)
+  setError(data.message);
+  return;
+}
+setLoading(false)
+setError(null)
+navigate('/login');
 
-      toast.success("Account created successfully");
-      navigate("/login");
 
     } catch (error) {
-      toast.error(error?.response?.data?.message || "Signup failed");
-    }
+    setLoading(false);
+    setError(toast.error(error?.response?.data?.message || "Signup failed"))
+  
+  }
   };
 
   return (
@@ -149,6 +160,7 @@ function SignupPage() {
           <button
             type="submit"
             onClick={handleSubmit}
+            disabled={loading}
             className="w-full mt-2 py-3 rounded-xl 
                        bg-gradient-to-r from-cyan-400 to-blue-500
                        text-black font-semibold
