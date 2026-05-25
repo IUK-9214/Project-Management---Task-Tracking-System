@@ -1,16 +1,12 @@
 import { NavLink } from "react-router-dom";
 import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import api from "../api/axios";
 
 function SideBar() {
   const [users, setUsers] = useState([]);
-  const [selectedUser, setSelectedUser] = useState(null);
-  const [userProjects, setUserProjects] = useState([]);
-  const [showUsers, setShowUsers] = useState(false);
 
-  const baseClasses =
-    "block py-2 px-4 rounded-lg transition relative overflow-hidden";
+  const baseClasses = "block py-2 px-4 rounded-lg transition relative overflow-hidden";
 
   const fetchUsers = async () => {
     try {
@@ -21,35 +17,25 @@ function SideBar() {
     }
   };
 
-  const fetchUserProjects = async (userId) => {
-    try {
-      const res = await api.get(`/project?assignedTo=${userId}`);
-      setUserProjects(res.data.project || res.data || []);
-    } catch (error) {
-      console.error("Error fetching user projects:", error?.response?.data?.message);
-    }
-  };
-
   useEffect(() => {
     fetchUsers();
   }, []);
 
-  const handleUserClick = (user) => {
-    setSelectedUser(user);
-    fetchUserProjects(user._id);
-  };
+ 
+  const navItems = [
+    { to: "/",                              label: "Home" },
+    { to: "/admindashboard",               label: "Dashboard" },
+    { to: "/admindashboard/adminprojects", label: "Projects" },
+    { to: "/admindashboard/admintasks",    label: "Tasks" },
+    { to: "/admindashboard/adminusers",    label: "Users" },
+  ];
 
   return (
     <motion.div
       initial={{ x: -80, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
-      className="w-64 
-                 bg-black/60 backdrop-blur-xl 
-                 border-r border-white/10 
-                 min-h-screen p-6 
-                 hidden md:block 
-                 shadow-2xl"
+      className="w-64 bg-black/60 backdrop-blur-xl border-r border-white/10 min-h-screen p-6 hidden md:block shadow-2xl"
     >
       <motion.h2
         initial={{ opacity: 0 }}
@@ -61,13 +47,7 @@ function SideBar() {
       </motion.h2>
 
       <nav className="flex flex-col gap-2">
-        {[
-          { to: "/", label: "Home" },
-          { to: "admindashboard", label: "Dashboard" },
-          { to: "adminprojects", label: "Projects" },
-          { to: "admintasks", label: "Tasks" },
-          { to: "adminusers", label: "Users" },
-        ].map((item, index) => (
+        {navItems.map((item, index) => (
           <motion.div
             key={item.to}
             initial={{ x: -20, opacity: 0 }}
@@ -76,6 +56,8 @@ function SideBar() {
           >
             <NavLink
               to={item.to}
+              
+              end={item.to === "/"}
               className={({ isActive }) =>
                 `${baseClasses} ${
                   isActive
@@ -84,21 +66,22 @@ function SideBar() {
                 }`
               }
             >
-              {item.label}
-
-              {/* Active Indicator Bar */}
-              <motion.span
-                layout
-                className="absolute left-0 top-0 h-full w-1 
-                           bg-gradient-to-b from-cyan-400 to-blue-500 
-                           rounded-r"
-                style={{ opacity: 1 }}
-              />
+              {({ isActive }) => (
+                <>
+                  {item.label}
+                  
+                  {isActive && (
+                    <motion.span
+                      layoutId="activeBar"
+                      className="absolute left-0 top-0 h-full w-1 bg-gradient-to-b from-cyan-400 to-blue-500 rounded-r"
+                    />
+                  )}
+                </>
+              )}
             </NavLink>
           </motion.div>
         ))}
       </nav>
-
     </motion.div>
   );
 }

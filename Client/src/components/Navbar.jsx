@@ -4,34 +4,35 @@ import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import api from "../api/axios";
-
+import { useDispatch, useSelector } from "react-redux"; // ✅ connect to Redux
+import { signOut } from "../redux/user/userSlice";      // ✅ import signOut action
 
 function Navbar() {
-
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  // ✅ FIX: Read actual user from Redux instead of hardcoding "Admin" / "A"
+  const { currentuser } = useSelector((state) => state.user);
+  const displayName = currentuser?.FullName || currentuser?.name || "User";
+  const avatarLetter = displayName.charAt(0).toUpperCase();
 
   const handleLogout = async () => {
     try {
-
-      // Backend logout request
       await api.post("/auth/logout");
 
-      // Remove local storage if used
+      // ✅ FIX: Dispatch signOut to clear Redux + persisted state
+      dispatch(signOut());
+
+      // These are now redundant since Redux-Persist handles storage,
+      // but kept for safety in case you also store a token separately
       localStorage.removeItem("token");
       localStorage.removeItem("user");
 
       toast.success("Logged out successfully");
-
-      // Redirect
       navigate("/login");
 
     } catch (error) {
-
-      console.error(
-        "Logout Error:",
-        error?.response?.data?.message
-      );
-
+      console.error("Logout Error:", error?.response?.data?.message);
       toast.error("Logout failed");
     }
   };
@@ -49,20 +50,18 @@ function Navbar() {
                  shadow-lg"
     >
 
-  
       <motion.h1
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.2 }}
         className="text-xl font-bold text-cyan-400"
       >
-        Welcome, Admin
+        Welcome, {displayName}
       </motion.h1>
 
-      
       <div className="flex items-center gap-4">
 
-        {/* Avatar */}
+    
         <motion.div
           whileHover={{ scale: 1.1 }}
           className="w-9 h-9 rounded-full 
@@ -71,7 +70,7 @@ function Navbar() {
                      flex items-center justify-center 
                      font-semibold cursor-pointer"
         >
-          A
+          {avatarLetter}
         </motion.div>
 
         {/* Logout Button */}

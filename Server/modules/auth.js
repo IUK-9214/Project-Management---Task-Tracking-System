@@ -14,6 +14,10 @@ const Auth= mongoose.Schema({
         type:String,
          required: true,
     },
+    role:{
+        type:String,
+      default: "user",
+    },
     imagePublicId:String
 },{timestamps:true});
 

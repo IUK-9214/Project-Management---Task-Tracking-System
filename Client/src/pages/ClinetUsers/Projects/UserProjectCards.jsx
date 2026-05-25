@@ -39,7 +39,6 @@ function UserProjectCards({ id, title, description }) {
         </p>
       </div>
 
-      {/* Footer Buttons */}
       <div className="flex items-center gap-3 mt-6">
         
         <Link

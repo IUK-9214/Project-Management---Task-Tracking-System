@@ -20,7 +20,7 @@ function UserProjectList() {
 
   useEffect(() => {
     fetchProjects();
-  }, [Project]); // fixed dependency to avoid infinite loop
+  }, [Project]); 
 
   return (
     <div

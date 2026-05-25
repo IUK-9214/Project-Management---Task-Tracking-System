@@ -13,7 +13,7 @@ function UserProjects() {
   return (
     <div className="min-h-screen bg-[#0f172a] px-6 py-8">
 
-      {/* Header */}
+      
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
         
         <div>
@@ -36,7 +36,7 @@ function UserProjects() {
 
       </div>
 
-      {/* Content */}
+      
       <div
         className="
           bg-[#111827]
